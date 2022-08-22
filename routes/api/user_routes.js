@@ -37,17 +37,25 @@ user_router.put('/:userId', async(req, res) => {
     res.send(updateUser)
 });
 
-// delete a user by ID
+// delete a user by ID - is deleting but request just spins
 user_router.delete('/:userId', async(req, res) => {
-    await User.findOneAndDelete({
+    const deletedUser = await User.deleteOne({
         _id: req.params.userId
     })
 
-    console.log('User has been deleted')
+    res.send("User has been removed from the database")
 });
 
 //adds a friend by ID?
-// user_router.put('/users/:userId/friends/:friendId')
+user_router.put('/users/:userId/friends/:friendId', async(req, res) => {
+    const addFriend = await User.findOneAndUpdate({
+        _id: req.params.userId
+    }, {
+        $pull: { friends: req.params.friendId}
+    }, {
+        
+    })
+})
 
 
 //delets user from friends list
