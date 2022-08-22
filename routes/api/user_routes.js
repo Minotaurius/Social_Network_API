@@ -52,3 +52,5 @@ user_router.delete('/:userId', async(req, res) => {
 
 //delets user from friends list
 // user_router.delete('/users/:userId/friends/:friendId')
+
+module.exports = user_router;

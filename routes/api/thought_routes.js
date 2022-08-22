@@ -57,3 +57,5 @@ thought_router.delete('/thoughts/:thoughtId', async(req, res) => {
 
 
 // remove reaction from thought
+
+module.exports = thought_router;
