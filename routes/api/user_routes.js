@@ -18,7 +18,7 @@ user_router.get('/:userId', async(req, res) => {
 
 // adds a new user
 user_router.post('/', async(req, res) => {
-    const newUser = await User.create()
+    const newUser = await User.create(req.body)
 
     res.send(newUser)
 });
