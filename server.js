@@ -9,3 +9,10 @@ const PORT = process.env.PORT || 9000;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+
+
+
+db.once('open', () => {
+    app.listen(PORT, () => console.log(`Listening on ${PORT}`))
+});
