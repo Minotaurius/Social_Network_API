@@ -22,12 +22,16 @@ const userSchema = new Schema({
         ref: "User"   
     }]
 }, {
-    toJSON: {
+    toJSON: { //include any virtual properties on a client side request
         virtuals: true,
     }, 
     id: false
 }
 );
+
+userSchema.virtual('friendCount').get(function() {
+    return this.friends.length;
+  });
 
 const User = model("User", userSchema);
 
