@@ -39,9 +39,11 @@ user_router.put('/:userId', async(req, res) => {
 
 // delete a user by ID
 user_router.delete('/:userId', async(req, res) => {
-    const deleteUser = await User.findOneAndDelete({
+    await User.findOneAndDelete({
         _id: req.params.userId
     })
+
+    console.log('User has been deleted')
 });
 
 //adds a friend by ID?
