@@ -1,4 +1,5 @@
 const { Schema, model, SchemaTypes, Types } = require('mongoose');
+const moment = require('moment')
 
 const reactionSchema = new Schema ({
     reactionId: {
@@ -15,8 +16,8 @@ const reactionSchema = new Schema ({
         required: true
     },
     createdAt: {
-        type: Date.toString(),
-        default: Date.now()
+        type: Date,
+        default: moment()
     }
 }, {
     toJSON: { //include any virtual properties on a client side request
