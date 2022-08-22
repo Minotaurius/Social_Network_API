@@ -23,7 +23,7 @@ const userSchema = new Schema({
     }]
 }, {
     toJSON: { //include any virtual properties on a client side request
-        virtuals: true,
+        virtuals: true
     }, 
     id: false
 }
