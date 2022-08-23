@@ -43,7 +43,7 @@ user_router.delete('/:userId', async (req, res) => {
         _id: req.params.userId
     })
 
-    res.send("User has been removed from the database")
+    res.json("User has been removed from the database")
 });
 
 // adds a friend by ID? --- not working
