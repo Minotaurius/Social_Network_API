@@ -51,14 +51,26 @@ user_router.put('/users/:userId/friends/:friendId', async(req, res) => {
     const addFriend = await User.findOneAndUpdate({
         _id: req.params.userId
     }, {
-        $pull: { friends: req.params.friendId}
+        $addToSet: { friends: req.params.friendId }
     }, {
-        
+        new: true
     })
+
+    res.send(addFriend)
 })
 
 
 //delets user from friends list
-// user_router.delete('/users/:userId/friends/:friendId')
+user_router.delete('/users/:userId/friends/:friendId', async(req, res) => {
+    const deleteFriend = await User.findOneAndUpdate({
+        _id: req.params.userId
+    }, {
+        $pull: { friends: req.params.friendId }
+    }, {
+        new: true
+    })
+
+    res.send(addFriend)
+})
 
 module.exports = user_router;
