@@ -46,8 +46,8 @@ user_router.delete('/:userId', async(req, res) => {
     res.send("User has been removed from the database")
 });
 
-//adds a friend by ID?
-user_router.post('/users/:userId/friends/:friendId', async(req, res) => {
+// adds a friend by ID? --- not working
+user_router.post('/:userId/friends/:friendId', async(req, res) => {
     const addFriend = await User.findOneAndUpdate({
         _id: req.params.userId
     }, {
@@ -60,8 +60,8 @@ user_router.post('/users/:userId/friends/:friendId', async(req, res) => {
 })
 
 
-//delets user from friends list
-user_router.delete('/users/:userId/friends/:friendId', async(req, res) => {
+// delets user from friends list -- not working
+user_router.delete('/:userId/friends/:friendId', async(req, res) => {
     const deleteFriend = await User.findOneAndUpdate({
         _id: req.params.userId
     }, {
@@ -70,7 +70,7 @@ user_router.delete('/users/:userId/friends/:friendId', async(req, res) => {
         new: true
     })
 
-    res.send(addFriend)
+    res.send(deleteFriend)
 })
 
 module.exports = user_router;
