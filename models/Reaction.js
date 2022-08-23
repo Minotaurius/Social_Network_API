@@ -1,10 +1,10 @@
-const { Schema, model, SchemaTypes, Types } = require('mongoose');
+const { Schema, Types } = require('mongoose');
 const moment = require('moment')
 
-const reactionSchema = new Schema ({
+const Reaction = new Schema ({
     reactionId: {
-        type: Schema.Types.ObjectId,
-        default: new Types.ObjectId
+        type: Types.ObjectId,
+        default: Types.ObjectId
     }, 
     reactionbody: {
         type: String,
@@ -22,8 +22,9 @@ const reactionSchema = new Schema ({
 }, {
     toJSON: { //include any virtual properties on a client side request
         virtuals: true,
+        getters: true
     }, 
     id: false
 });
 
-module.exports = reactionSchema
+module.exports = Reaction;

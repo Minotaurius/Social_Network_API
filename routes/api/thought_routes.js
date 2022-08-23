@@ -2,20 +2,22 @@ const thought_router = require('express').Router();
 const { User, Thought } = require("../../models");
 
 // find all thoughts 
-thought_router.get('/', async(req, res) => {
-    Thought.find()
-    .then((thoughts) => {
-        res.json(thoughts)
-    })
-    .catch((err) => {
-        console.log(err);
-    })
+thought_router.get('/', async (req, res) => {
+    const allThoughts = await Thought.find()
+
+    res.json(allThoughts)
+    // .then((thoughts) => {
+    //     res.json(thoughts)
+    // })
+    // .catch((err) => {
+    //     console.log(err);
+    // })
 
 });
 
 // single thought by ID
-thought_router.get('/', async(req, res) => {
-    const singleThought = await Thought.findOne({ _id: user_id })
+thought_router.get('/:thoughtId', async(req, res) => {
+    const singleThought = await Thought.findOne({ _id: req.params.thoughtId })
 
     res.send(singleThought)
 });
