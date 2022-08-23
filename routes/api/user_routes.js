@@ -47,7 +47,7 @@ user_router.delete('/:userId', async(req, res) => {
 });
 
 //adds a friend by ID?
-user_router.put('/users/:userId/friends/:friendId', async(req, res) => {
+user_router.post('/users/:userId/friends/:friendId', async(req, res) => {
     const addFriend = await User.findOneAndUpdate({
         _id: req.params.userId
     }, {
