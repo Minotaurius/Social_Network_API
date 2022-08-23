@@ -2,29 +2,29 @@ const user_router = require('express').Router();
 const { User, Thought } = require("../../models");
 
 //find all users
-user_router.get('/', async(req, res) => {
+user_router.get('/', async (req, res) => {
     const users = await User.find();
 
     res.send(users)
 });
 
 // find a user by id & populate thought/friend data
-user_router.get('/:userId', async(req, res) => {
+user_router.get('/:userId', async (req, res) => {
     const user_id = req.params.userId
     const user = await User.findOne({ _id: user_id }).populate('friends').populate('thoughts')
-    
+
     res.send(user)
 });
 
 // adds a new user
-user_router.post('/', async(req, res) => {
+user_router.post('/', async (req, res) => {
     const newUser = await User.create(req.body)
 
     res.send(newUser)
 });
 
 // updates a user by id
-user_router.put('/:userId', async(req, res) => {
+user_router.put('/:userId', async (req, res) => {
     const updateUser = await User.findOneAndUpdate({
         _id: req.params.userId
     }, {
@@ -38,7 +38,7 @@ user_router.put('/:userId', async(req, res) => {
 });
 
 // delete a user by ID - is deleting but request just spins
-user_router.delete('/:userId', async(req, res) => {
+user_router.delete('/:userId', async (req, res) => {
     const deletedUser = await User.deleteOne({
         _id: req.params.userId
     })
@@ -47,7 +47,7 @@ user_router.delete('/:userId', async(req, res) => {
 });
 
 // adds a friend by ID? --- not working
-user_router.post('/:userId/friends/:friendId', async(req, res) => {
+user_router.post('/:userId/friends/:friendId', async (req, res) => {
     const addFriend = await User.findOneAndUpdate({
         _id: req.params.userId
     }, {
@@ -61,7 +61,7 @@ user_router.post('/:userId/friends/:friendId', async(req, res) => {
 
 
 // delets user from friends list -- not working
-user_router.delete('/:userId/friends/:friendId', async(req, res) => {
+user_router.delete('/:userId/friends/:friendId', async (req, res) => {
     const deleteFriend = await User.findOneAndUpdate({
         _id: req.params.userId
     }, {

@@ -1,5 +1,5 @@
 const thought_router = require('express').Router();
-const { User, Thought } = require("../../models");
+const { User, Thought, Reaction } = require("../../models");
 
 // find all thoughts 
 thought_router.get('/', async (req, res) => {
@@ -33,7 +33,7 @@ thought_router.post('/', async(req, res) => {
                 runValidators: true,
                 new: true
             }).then(userAndThought => {
-                res.json(userAndThought)
+                res.send(userAndThought)
             })
             .catch((err => {
                 console.log(err)
@@ -69,11 +69,34 @@ thought_router.delete('/:thoughtId', async(req, res) => {
     res.json("Thought successfully deleted")
 })
 
-// reaction to thought
-
+// add reaction to thought
+thought_router.post('/:thoughtId/reactions', async(req, res) => {
+    const addReaction = await Thought.findOneAndUpdate(
+                { _id: req.params.thoughtId },
+                { $addToSet: { reactions: req.body }},
+                { new: true }
+            )
+            addReaction.save()
+            res.send(addReaction)
+            // console.log(addReaction)
+        })
+    
 
 
 // remove reaction from thought
+thought_router.delete('/:thoughtId/reactions', async(req, res) => {
+    await Thought.findOneAndRemove({ _id: req.params.thoughtId })
+    .then((deletedThought) => {
+        return User.findOneAndUpdate(
+            { thoughts: req.params.thoughtId },
+            { $pull: { thoughts: req.params.thoughtId }},
+            { new: true}
+        )
+    }).then(() => {})
+
+    res.json("Thought successfully deleted")
+})
+
 
 module.exports = thought_router;
 
