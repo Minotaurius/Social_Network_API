@@ -85,16 +85,13 @@ thought_router.post('/:thoughtId/reactions', async(req, res) => {
 
 // remove reaction from thought
 thought_router.delete('/:thoughtId/reactions', async(req, res) => {
-    await Thought.findOneAndRemove({ _id: req.params.thoughtId })
-    .then((deletedThought) => {
-        return User.findOneAndUpdate(
-            { thoughts: req.params.thoughtId },
-            { $pull: { thoughts: req.params.thoughtId }},
-            { new: true}
-        )
-    }).then(() => {})
+    const deletedReaction = await Thought.findOneAndUpdate(
+        { _id: req.params.thoughtId },
+        { $pull: { thoughts: req.params.thoughtId }},
+        { new: true}
+    )
 
-    res.json("Thought successfully deleted")
+    res.send("Reaction successfully deleted")
 })
 
 
